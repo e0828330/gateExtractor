@@ -52,7 +52,6 @@ public class Main {
 		int c;
 		String arg;
 		while ((c = g.getopt()) != -1) {
-			System.out.println(c);
 			switch (c) {
 				case 'i':
 					arg = g.getOptarg();
