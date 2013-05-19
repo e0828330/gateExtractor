@@ -29,7 +29,7 @@ public class Main {
 			System.err.println(msg);
 		}
 		System.err.println("Usage:");
-		System.err.println("java -jar gateExtractor.jar -i <inputpath> [-t] [-r -o <outputpath>] [-e]");
+		System.err.println("java -jar gateExtractor.jar -i <inputpath> [-t] [-r <outputpath>] [-e]");
 		System.exit(1);
 	}
 	
@@ -39,7 +39,7 @@ public class Main {
 	 */
 	public static void main(String[] args) throws Exception {
 		/* Parse command line arguments */
-		Getopt g = new Getopt("gateExtractor", args, "i:o:tre");
+		Getopt g = new Getopt("gateExtractor", args, "i:r:te");
 		g.setOpterr(false);
 		
 		String inputPath = "";
@@ -60,14 +60,16 @@ public class Main {
 					}
 					inputPath = arg;
 					break;
-				case 'o':
-					outputPath = g.getOptarg();
+				case 'r':
+					run = true;
+					arg = g.getOptarg();
+					if (arg == null || arg.isEmpty()) {
+						usage("Please provide an output path");
+					}
+					outputPath = arg;
 					break;
 				case 't':
 					train = true;
-					break;
-				case 'r':
-					run = true;
 					break;
 				case 'e':
 					eval = true;
