@@ -6,59 +6,54 @@ import gate.Corpus;
 import gate.Document;
 import gate.Factory;
 import gate.Gate;
-import gate.creole.SerialAnalyserController;
-import gate.util.GateException;
-import gate.util.persistence.PersistenceManager;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
+
+import org.apache.log4j.Logger;
+
+import pipelines.Evaluator;
+import pipelines.Extractor;
+import pipelines.Pipeline;
+import pipelines.Tagger;
+import pipelines.Trainer;
 
 public class Main {
 
+	private static Logger log = Logger.getLogger(Main.class); 
+	
 	/**
 	 * @param args
-	 * @throws GateException 
-	 * @throws IOException 
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) throws GateException, IOException {
+	public static void main(String[] args) throws Exception {
 		/* Initialize GATE */
 		String location = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
 		String resourcesFolder = location + "/resources";
 		Gate.setGateHome(new File(resourcesFolder));
 		Gate.init();
-				
-		/* Load Application States */
-		System.out.println("Loading application states ...");
-		SerialAnalyserController tagger = (SerialAnalyserController) PersistenceManager.loadObjectFromFile(new File(resourcesFolder + "/tagger.xgapp"));
-		SerialAnalyserController trainer = (SerialAnalyserController) PersistenceManager.loadObjectFromFile(new File(resourcesFolder + "/train.xgapp"));
-		SerialAnalyserController main = (SerialAnalyserController) PersistenceManager.loadObjectFromFile(new File(resourcesFolder + "/ml.xgapp"));
-		SerialAnalyserController eval = (SerialAnalyserController) PersistenceManager.loadObjectFromFile(new File(resourcesFolder + "/eval.xgapp"));
-		
-		System.out.println("Done application states!");
-	
+
 		/* Load Corpus */
-		System.out.println("Loading Corpus ... ");
-		Corpus corpus = Factory.newCorpus("My XML Files"); 
+		log.info("Loading Corpus ... ");
+		Corpus corpus = Factory.newCorpus("Training Corpus"); 
 		// TODO -this is hardcoded
 		File directory = new File("/home/linux/Dokumente/Information Retrieval/train/key-gate"); 
 		URL url = directory.toURI().toURL();
 		corpus.populate(url, null, null, true);
 		Document doc = corpus.get(0);
-		System.out.println("Done loading Corpus!");
+		log.info("Done loading Corpus!");
+
+		Pipeline pipeline = null;
 
 		/* Do Tagging */
-		System.out.println("Running Tagger ...");
-		tagger.setCorpus(corpus);
-		tagger.execute();
-		System.out.println("Tagging done!");
-		
+		pipeline = new Tagger();
+		pipeline.run(corpus, resourcesFolder);
+
 		/* Train */
-		System.out.println("Running Trainer ...");
-		trainer.setCorpus(corpus);
-		trainer.execute();
-		System.out.println("Training Done!");
+		pipeline = new Trainer();
+		pipeline.run(corpus, resourcesFolder);
 		
+		/* Print out some data */
 		System.out.println("List annotations of first document ...");
 		AnnotationSet newAnnotations = doc.getAnnotations("Key");
 		System.out.println("Showing document: " + doc.getName());
@@ -70,11 +65,10 @@ public class Main {
 		}
 		
 		/* Apply learned rules */
-		System.out.println("Start Application ...");
-		main.setCorpus(corpus);
-		main.execute();
-		System.out.println("Application Done!");
+		pipeline = new Extractor();
+		pipeline.run(corpus, resourcesFolder);
 		
+		/* Print out some data */
 		System.out.println("List annotations of first document ...");
 		newAnnotations = doc.getAnnotations("Result");
 		System.out.println("Showing document: " + doc.getName());
@@ -86,12 +80,8 @@ public class Main {
 		}
 		
 		/* Evaluate results */
-		System.out.println("Running Evaluation ...");
-		eval.setCorpus(corpus);
-		eval.execute();
-		System.out.println("Evaluation done!");
-		
-		
+		pipeline = new Evaluator();
+		pipeline.run(corpus, resourcesFolder);
 	}
 
 }
