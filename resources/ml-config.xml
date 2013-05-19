@@ -5,13 +5,11 @@
   <PARAMETER name="thresholdProbabilityEntity" value="0.2"/>  
   <PARAMETER name="thresholdProbabilityBoundary" value="0.4"/>  
 
-  <multiClassification2Binary method="one-vs-others"/>  
+  <multiClassification2Binary method="one-vs-others" thread-pool-size="8" />  
 
-  <EVALUATION method="kfold" 
-	      runs="4"/> 
+  <EVALUATION method="kfold"  runs="4"/> 
 
-  <ENGINE nickname="PAUM" implementationName="PAUM"  
-	  options="-p 50 -n 5 -optB 0.3"/>  
+  <ENGINE nickname="PAUM" implementationName="PAUM" options="-p 50 -n 5 -optB 0.3"/>  
 
   <DATASET>
 
@@ -22,7 +20,7 @@
       <SEMTYPE>NOMINAL</SEMTYPE>  
       <TYPE>Token</TYPE>  
       <FEATURE>category</FEATURE>  
-      <RANGE from="-6" to="6"/>  
+      <RANGE from="-2" to="2"/>  
     </ATTRIBUTELIST>  
 
     <ATTRIBUTELIST>  
@@ -30,7 +28,7 @@
       <SEMTYPE>NOMINAL</SEMTYPE>  
       <TYPE>Token</TYPE>  
       <FEATURE>orth</FEATURE>  
-      <RANGE from="-6" to="6"/>  
+      <RANGE from="-2" to="2"/>  
     </ATTRIBUTELIST>  
 
     <ATTRIBUTELIST>  
