@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<ML-CONFIG>
+  <VERBOSITY level="1"/>
+  <SURROUND value="true"/>  
+  <PARAMETER name="thresholdProbabilityEntity" value="0.2"/>  
+  <PARAMETER name="thresholdProbabilityBoundary" value="0.4"/>  
+
+  <multiClassification2Binary method="one-vs-others"/>  
+
+  <EVALUATION method="kfold" 
+	      runs="4"/> 
+
+  <ENGINE nickname="PAUM" implementationName="PAUM"  
+	  options="-p 50 -n 5 -optB 0.3"/>  
+
+  <DATASET>
+
+    <INSTANCE-TYPE>Token</INSTANCE-TYPE>
+
+    <ATTRIBUTELIST>  
+      <NAME>POS</NAME>  
+      <SEMTYPE>NOMINAL</SEMTYPE>  
+      <TYPE>Token</TYPE>  
+      <FEATURE>category</FEATURE>  
+      <RANGE from="-6" to="6"/>  
+    </ATTRIBUTELIST>  
+
+    <ATTRIBUTELIST>  
+      <NAME>TokenOrth</NAME>  
+      <SEMTYPE>NOMINAL</SEMTYPE>  
+      <TYPE>Token</TYPE>  
+      <FEATURE>orth</FEATURE>  
+      <RANGE from="-6" to="6"/>  
+    </ATTRIBUTELIST>  
+
+    <ATTRIBUTELIST>  
+      <NAME>TokenKind</NAME>  
+      <SEMTYPE>NOMINAL</SEMTYPE>  
+      <TYPE>Token</TYPE>  
+      <FEATURE>kind</FEATURE>  
+      <RANGE from="-4" to="4"/>  
+    </ATTRIBUTELIST> 
+
+    <ATTRIBUTE>  
+      <NAME>Lookup</NAME>  
+      <SEMTYPE>NOMINAL</SEMTYPE>  
+      <TYPE>Lookup</TYPE>  
+      <FEATURE>majorType</FEATURE>  
+      <POSITION>0</POSITION>
+    </ATTRIBUTE> 
+
+    <ATTRIBUTELIST>  
+      <NAME>String</NAME>  
+      <SEMTYPE>NOMINAL</SEMTYPE>  
+      <TYPE>Token</TYPE>  
+      <FEATURE>string</FEATURE> 
+      <RANGE from="-2" to="2"/>  
+    </ATTRIBUTELIST>  
+
+    <ATTRIBUTE>
+      <NAME>Class</NAME>
+      <SEMTYPE>NOMINAL</SEMTYPE>
+      <TYPE>IE</TYPE>
+      <FEATURE>type</FEATURE>
+      <POSITION>0</POSITION>
+      <CLASS/>
+    </ATTRIBUTE>
+
+  </DATASET>
+</ML-CONFIG>

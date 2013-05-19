@@ -1,0 +1,53 @@
+Phase:firstpass
+Input: workshopname workshopacronym workshopdate workshoplocation conferencename conferenceacronym workshoppapersubmissiondate
+Options: control = brill
+
+Rule: workshopname
+(
+{workshopname}
+):workshopname
+-->
+ :workshopname.IE = {type="workshopname"}
+
+Rule: workshopacronym
+(
+{workshopacronym}
+):workshopacronym
+-->
+ :workshopacronym.IE = {type="workshopacronym"}
+
+Rule: workshopdate
+(
+{workshopdate}
+):workshopdate
+-->
+ :workshopdate.IE = {type="workshopdate"}
+
+Rule: workshoplocation
+(
+{workshoplocation}
+):workshoplocation
+-->
+ :workshoplocation.IE = {type="workshoplocation"}
+
+Rule: conferencename
+(
+{conferencename}
+):conferencename
+-->
+ :conferencename.IE = {type="conferencename"}
+
+Rule: conferenceacronym
+(
+{conferenceacronym}
+):conferenceacronym
+-->
+ :conferenceacronym.IE = {type="conferenceacronym"}
+
+Rule: workshoppapersubmissiondate
+(
+{workshoppapersubmissiondate}
+):workshoppapersubmissiondate
+-->
+ :workshoppapersubmissiondate.IE = {type="workshoppapersubmissiondate"}
+
