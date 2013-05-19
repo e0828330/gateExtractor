@@ -23,7 +23,7 @@
               </entry>
               <entry>
                 <string>outputASName</string>
-                <string>Result</string>
+                <string>Key</string>
               </entry>
               <entry>
                 <string>corpus</string>
@@ -31,7 +31,7 @@
               </entry>
               <entry>
                 <string>learningMode</string>
-                <gate.learning.RunMode>APPLICATION</gate.learning.RunMode>
+                <gate.learning.RunMode>EVALUATION</gate.learning.RunMode>
               </entry>
               <entry>
                 <string>inputASName</string>
@@ -61,7 +61,7 @@
       <collectionType>java.util.ArrayList</collectionType>
     </prList>
     <resourceType>gate.creole.SerialAnalyserController</resourceType>
-    <resourceName>ML</resourceName>
+    <resourceName>Eval</resourceName>
     <initParams class="gate.util.persistence.MapPersistence">
       <mapType>gate.util.SimpleFeatureMapImpl</mapType>
       <localMap/>
