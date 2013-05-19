@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="jar" name="Create Runnable Jar for Project gateExtractor">
+
+     <target name="clean">
+        <delete dir="bin"/>
+        <delete file="gateExtractor.jar" />
+    </target>
+
+    <target name="compile">
+        <mkdir dir="bin"/>
+        <javac srcdir="src" destdir="bin"  includeantruntime="false">
+            <classpath>
+                  <pathelement path="${classpath}"/>
+                  <fileset dir="lib">
+                    <include name="**/*.jar"/>
+                  </fileset>
+            </classpath>
+        </javac>
+        <copy file="src/log4j.properties" todir="bin" />
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar destfile="gateExtractor.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="main.Main"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="bin"/>
+            <zipfileset excludes="META-INF/*.SF" src="lib/ant.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/ant-launcher.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/aopalliance.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/apache-mime4j-core.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/apache-mime4j-dom.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/bcmail-jdk15.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/bcprov-jdk15.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/commons-codec.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/commons-compress.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/commons-io.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/commons-lang.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/commons-logging.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/dom4j.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/flying-saucer-core.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/fontbox.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/gate-asm.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/gate-compiler-jdt.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/gate.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/ivy.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/java-getopt.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/jaxen.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/jdom.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/jempbox.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/junit.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/log4j.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/lucene-core.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/metadata-extractor.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/nekohtml.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/pdfbox.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/poi.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/poi-ooxml.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/poi-ooxml-schemas.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/poi-scratchpad.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/spring-aop.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/spring-beans.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/spring-core.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/stax2-api.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/tika-core.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/tika-parsers.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/woodstox-core-lgpl.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/xercesImpl.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/xmlbeans.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/xmlunit.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/xpp3.jar" />
+            <zipfileset excludes="META-INF/*.SF" src="lib/xstream.jar" />
+        </jar>
+    </target>
+</project>
