@@ -1,13 +1,13 @@
 package pipelines;
 
-import java.io.File;
-
-import org.apache.log4j.Logger;
-
 import gate.Corpus;
 import gate.Factory;
 import gate.creole.SerialAnalyserController;
 import gate.util.persistence.PersistenceManager;
+
+import java.io.File;
+
+import org.apache.log4j.Logger;
 
 public class Evaluator implements Pipeline {
 
