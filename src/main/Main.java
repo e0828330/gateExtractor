@@ -109,6 +109,17 @@ public class Main {
 			usage("Please provide an output directory!");
 		}
 
+		if (train && eval) {
+			usage("Only one mode allowed at a time");
+		}
+		
+		if (train && run) {
+			usage("Only one mode allowed at a time");
+		}
+		
+		if (eval && run) {
+			usage("Only one mode allowed at a time");
+		}
 		
 		/* Initialize GATE */
 		String location = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();

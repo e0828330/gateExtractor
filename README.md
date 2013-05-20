@@ -25,11 +25,25 @@ be saved (HTML files).
 
 The -e (evaluate) paramter does a k-fold cross validation using k=4.
 
-The parameters can be combined i.e do just run training application
-and evaluation one can just do:
+Only one of the three modes (training, run, evaluation) can be selected at
+a time.
+
+Typical use would be:
+
+#####Training:
 
 ```
-java -Xmx4G -jar gateExtractor.jar -i corpusDir/ -t -r outputDir/ -e
+java -Xmx4G -jar gateExtractor.jar -i trainingCorpus/ -t
+```
+
+#####Evaluating:
+```
+java -Xmx4G -jar gateExtractor.jar -i trainingCorpus/ -e
+```
+
+#####Running on some documents:
+```
+java -Xmx4G -jar gateExtractor.jar -i documents/ -r outputFolder/
 ```
 
 
