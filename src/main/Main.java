@@ -158,7 +158,9 @@ public class Main {
 			pipeline = new Evaluator();
 			pipeline.run(corpus, resourcesFolder);
 		}
-		// remove ml-config-threads.xml file
+
+		/* Clean up */
+		Factory.deleteResource(corpus);
 		outputFile_mlConfigThreads.delete();
 	}
 

@@ -1,6 +1,7 @@
 package pipelines;
 
 import gate.Corpus;
+import gate.Factory;
 import gate.creole.SerialAnalyserController;
 import gate.util.persistence.PersistenceManager;
 
@@ -18,6 +19,7 @@ public class Trainer implements Pipeline {
 		controller.setCorpus(corpus);
 		controller.execute();
 		log.info("Training done!");
+		Factory.deleteResource(controller);
 	}
 
 

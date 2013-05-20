@@ -5,6 +5,7 @@ import java.io.File;
 import org.apache.log4j.Logger;
 
 import gate.Corpus;
+import gate.Factory;
 import gate.creole.SerialAnalyserController;
 import gate.util.persistence.PersistenceManager;
 
@@ -19,6 +20,7 @@ public class Evaluator implements Pipeline {
 		controller.setCorpus(corpus);
 		controller.execute();
 		log.info("Evaluation done!");
+		Factory.deleteResource(controller);
 	}
 
 
