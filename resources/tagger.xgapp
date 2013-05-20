@@ -286,58 +286,6 @@
             <mapType>gate.util.SimpleFeatureMapImpl</mapType>
             <localMap>
               <entry>
-                <string>outputASName</string>
-                <string>Key</string>
-              </entry>
-              <entry>
-                <string>document</string>
-                <null/>
-              </entry>
-              <entry>
-                <string>corpus</string>
-                <null/>
-              </entry>
-              <entry>
-                <string>inputASName</string>
-                <string>Key</string>
-              </entry>
-            </localMap>
-          </runtimeParams>
-          <resourceType>gate.creole.ANNIETransducer</resourceType>
-          <resourceName>ANNIE NE Transducer</resourceName>
-          <initParams class="gate.util.persistence.MapPersistence">
-            <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-            <localMap>
-              <entry>
-                <string>encoding</string>
-                <string>UTF-8</string>
-              </entry>
-              <entry>
-                <string>annotationAccessors</string>
-                <null/>
-              </entry>
-              <entry>
-                <string>operators</string>
-                <null/>
-              </entry>
-              <entry>
-                <string>grammarURL</string>
-                <gate.util.persistence.PersistenceManager-URLHolder>
-                  <urlString>$gatehome$plugins/ANNIE/resources/NE/main.jape</urlString>
-                </gate.util.persistence.PersistenceManager-URLHolder>
-              </entry>
-            </localMap>
-          </initParams>
-          <features class="gate.util.persistence.MapPersistence">
-            <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-            <localMap/>
-          </features>
-        </gate.util.persistence.LanguageAnalyserPersistence>
-        <gate.util.persistence.LanguageAnalyserPersistence>
-          <runtimeParams class="gate.util.persistence.MapPersistence">
-            <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-            <localMap>
-              <entry>
                 <string>document</string>
                 <null/>
               </entry>

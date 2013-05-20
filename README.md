@@ -11,7 +11,7 @@ make sure to not move the jar it requires the files from resources to run.
 The application is controlled throught a command line interface:
 
 ```
-java -Xmx4G -jar gateExtractor.jar -i <inputpath> [-t] [-r <outputpath>] [-e]
+java -Xmx2G -jar gateExtractor.jar -i <inputpath> [-t] [-r <outputpath>] [-e]
 ```
 
 The first parameter -i is mandatory and provides the path to the corpus.
@@ -28,22 +28,25 @@ The -e (evaluate) paramter does a k-fold cross validation using k=4.
 Only one of the three modes (training, run, evaluation) can be selected at
 a time.
 
+Depending on the performance of your system (number of cpus, cpu power)
+training and especially evaluation can take a long time.
+
 Typical use would be:
 
 #####Training:
 
 ```
-java -Xmx4G -jar gateExtractor.jar -i trainingCorpus/ -t
+java -Xmx2G -jar gateExtractor.jar -i trainingCorpus/ -t
 ```
 
 #####Evaluating:
 ```
-java -Xmx4G -jar gateExtractor.jar -i trainingCorpus/ -e
+java -Xmx2G -jar gateExtractor.jar -i trainingCorpus/ -e
 ```
 
 #####Running on some documents:
 ```
-java -Xmx4G -jar gateExtractor.jar -i documents/ -r outputFolder/
+java -Xmx2G -jar gateExtractor.jar -i documents/ -r outputFolder/
 ```
 
 
