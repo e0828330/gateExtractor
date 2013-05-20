@@ -47,7 +47,7 @@
               <entry>
                 <string>configFileURL</string>
                 <gate.util.persistence.PersistenceManager-URLHolder>
-                  <urlString>$relpath$./ml-config.xml</urlString>
+                  <urlString>$relpath$./ml-config-threads.xml</urlString>
                 </gate.util.persistence.PersistenceManager-URLHolder>
               </entry>
             </localMap>

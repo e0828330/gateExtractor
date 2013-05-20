@@ -2,3 +2,4 @@
 resources/savedFiles
 bin
 gateExtractor.jar
+resources/ml-config-threads.xml

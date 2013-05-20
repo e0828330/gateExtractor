@@ -6,12 +6,28 @@ import gate.Gate;
 import gnu.getopt.Getopt;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import org.apache.log4j.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import output.OutputGenerator;
 import pipelines.Evaluator;
@@ -22,8 +38,10 @@ import pipelines.Trainer;
 
 public class Main {
 
-	private static Logger log = Logger.getLogger(Main.class); 
-	
+	private static Logger log = Logger.getLogger(Main.class);
+
+	private static File outputFile_mlConfigThreads;
+
 	private static void usage(String msg) {
 		if (msg != null) {
 			System.err.println(msg);
@@ -98,8 +116,12 @@ public class Main {
 		String location = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
 		String resourcesFolder = location + "/resources";
 		Gate.setGateHome(new File(resourcesFolder));
+
+		/* Create ml-config.xml with threads */
+
+		createConfig(resourcesFolder + File.separator);
 		Gate.init();
-		
+
 		/* Load Corpus */
 		log.info("Loading Corpus ... ");
 		Corpus corpus = Factory.newCorpus("Training Corpus"); 
@@ -138,6 +160,43 @@ public class Main {
 			pipeline = new Evaluator();
 			pipeline.run(corpus, resourcesFolder);
 		}
+		// remove ml-config-threads.xml file
+		outputFile_mlConfigThreads.delete();
 	}
+
+	private static void createConfig(String path) throws IOException, ParserConfigurationException, SAXException, TransformerException {
+		String mlConfig = path + "ml-config.xml";
+		String mlConfigThreads = path + "ml-config-threads.xml";
+
+		log.debug("Source for mlConfig:  " + mlConfig);
+		log.debug("Source for mlConfigThreads:  " + mlConfigThreads);
+
+		File inputFile = new File(mlConfig);
+	    outputFile_mlConfigThreads = new File(mlConfigThreads);
+
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		log.debug("Put " + mlConfig + " into dbBuilder for parsing");
+		Document doc = dBuilder.parse(inputFile);
+
+		//optional, but recommended
+		doc.getDocumentElement().normalize();
+
+		NodeList elements = doc.getElementsByTagName("multiClassification2Binary");
+		if (elements.getLength() == 1) {
+			Element element = (Element) elements.item(0);
+			element.setAttribute("thread-pool-size", String.valueOf(Runtime.getRuntime().availableProcessors()));
+
+		}
+
+		// write the content into xml file
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		DOMSource source = new DOMSource(doc);
+		StreamResult result = new StreamResult(outputFile_mlConfigThreads);
+
+		transformer.transform(source, result);
+	}
+
 
 }
